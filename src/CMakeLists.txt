@@ -5,7 +5,7 @@ find_package(GTest CONFIG REQUIRED)
 add_executable(${PROJECT_NAME}
         TestCanWin.cpp
         TestHammingDistance.cpp
-        TestHammingDistance.cpp
+        TestCQueue.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)
