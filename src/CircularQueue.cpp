@@ -1,5 +1,3 @@
-#pragma once
-
 //https://leetcode.com/problems/design-circular-queue/description/
 /*
  * Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle, and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
@@ -42,7 +40,7 @@ CQueue.Rear();     // return 4
  */
 
 #include <array>
-#include <exception>
+#include <gtest/gtest.h>
 
 template<typename T, size_t CAPACITY>
 class CQueue {
@@ -95,3 +93,26 @@ public:
     int rear = -1;
     std::array<T, CAPACITY> container;
 };
+
+
+class TestSPSCQueue : public ::testing::Test {
+protected:
+    void SetUp() override {}
+    void TearDown() override {}
+};
+
+TEST_F(TestSPSCQueue, testCases) {
+    CQueue<int,3> myCircularQueue;
+    EXPECT_TRUE(myCircularQueue.isEmpty());
+    EXPECT_FALSE(myCircularQueue.isFull());
+    EXPECT_TRUE(myCircularQueue.enQueue(1)); // return True
+    EXPECT_TRUE(myCircularQueue.enQueue(2)); // return True
+    EXPECT_TRUE(myCircularQueue.enQueue(3)); // return True
+    EXPECT_EQ(myCircularQueue.Front(),1);     // return 3
+    EXPECT_FALSE(myCircularQueue.enQueue(4)); // return False
+    EXPECT_EQ(myCircularQueue.Rear(),3);     // return 3
+    EXPECT_TRUE(myCircularQueue.isFull());   // return True
+    EXPECT_TRUE(myCircularQueue.deQueue());  // return True
+    EXPECT_TRUE(myCircularQueue.enQueue(4)); // return True
+    EXPECT_EQ(myCircularQueue.Rear(),4);     // return 4
+}
