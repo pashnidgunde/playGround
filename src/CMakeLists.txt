@@ -3,11 +3,13 @@ project(LeetCodeTest)
 find_package(GTest CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME}
-        TestCanWin.cpp
-        TestHammingDistance.cpp
-        CircularQueue.cpp
-        TwoSum.cpp
-        TwoSum.cpp
+        array/ProductExceptSelf.cpp
+        bitwise/TestHammingDistance.cpp
+        constantTime/TestCanWin.cpp
+        hashing/TwoSum.cpp
+        hashing/ContainsDuplicate.cpp
+        slidingWindow/MaxProfit.cpp
+        queue/CircularQueue.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)
