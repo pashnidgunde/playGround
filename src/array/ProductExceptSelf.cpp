@@ -34,7 +34,7 @@ public:
         for (size_t i = 1 ; i < nums.size(); i++) {
             pre[i] =  pre[i-1] * nums[i-1];
         }
-        std::cout << pre << std::endl;
+        //std::cout << pre << std::endl;
 
         // post
         std::vector<int> post(nums.size());
@@ -42,13 +42,13 @@ public:
         for (int i = static_cast<int>(nums.size()-2); i >= 0; i--) {
             post[i] =  post[i+1] * nums[i+1];
         }
-        std::cout << pre << std::endl;
+        //std::cout << pre << std::endl;
 
         std::vector<int> result(nums.size());
         for (size_t i = 0; i < nums.size(); ++i) {
             result[i] = pre[i] * post[i];
         }
-        std::cout << pre << std::endl;
+        //std::cout << pre << std::endl;
         return result;
     }
 
@@ -68,7 +68,7 @@ public:
         for (size_t i = 1 ; i < nums.size(); i++) {
             result[i] =  result[i-1] * nums[i-1];
         }
-        std::cout << result << std::endl;
+        //std::cout << result << std::endl;
 
         // post
         auto post = 1;
@@ -76,7 +76,7 @@ public:
             result[i] = result[i] * post;
             post = post * nums[i];
         }
-        std::cout << result << std::endl;
+        //std::cout << result << std::endl;
         return result;
     }
 };

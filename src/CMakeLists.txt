@@ -4,6 +4,7 @@ find_package(GTest CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME}
         array/ProductExceptSelf.cpp
+        array/MaximumSubarray.cpp
         bitwise/TestHammingDistance.cpp
         constantTime/TestCanWin.cpp
         hashing/TwoSum.cpp
