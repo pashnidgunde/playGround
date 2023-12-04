@@ -11,6 +11,7 @@ add_executable(${PROJECT_NAME}
         hashing/ContainsDuplicate.cpp
         slidingWindow/MaxProfit.cpp
         queue/CircularQueue.cpp
+        array/MaxProductSubarray.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)

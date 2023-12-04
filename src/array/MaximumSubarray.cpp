@@ -3,8 +3,6 @@ Given an integer array nums, find the
 subarray
  with the largest sum, and return its sum.
 
-
-
 Example 1:
 
 Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
@@ -23,6 +21,8 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 
 */
 
+// https://www.youtube.com/watch?v=5WZl3MMT0Eg&list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf&index=5
+
 #include <vector>
 #include <gtest/gtest.h>
 
@@ -30,6 +30,20 @@ using namespace std;
 
 class MaxSubArray {
 public:
+    // O(n*n)
+    int maxSubArray1(vector<int>& nums) {
+        int maxSoFar = INT_MIN;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            int sumSoFar = 0;
+            for (size_t j = i; j < nums.size(); ++j) {
+                sumSoFar += nums[j];
+                maxSoFar = std::max(maxSoFar, sumSoFar);
+            }
+        }
+        return maxSoFar;
+    }
+
+    // O(n)
     int maxSubArray(vector<int>& nums) {
         int maxSoFar = INT_MIN;
         int sumSoFar = 0;
@@ -42,7 +56,6 @@ public:
         }
         return maxSoFar;
     }
-        
 };
 
 class TestMaxSubArray : public ::testing::Test {

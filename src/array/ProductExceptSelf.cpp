@@ -19,7 +19,6 @@ Output: [0,0,9,0,0]
 
 #include <vector>
 #include <gtest/gtest.h>
-#include "internal/Utils.h"
 
 using namespace std;
 
