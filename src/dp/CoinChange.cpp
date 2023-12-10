@@ -24,6 +24,7 @@ Output: 0
 #include <vector>
 #include <algorithm>
 #include <climits>
+#include <gtest/gtest.h>
 
 using namespace std;
 class CoinChange {
@@ -31,15 +32,13 @@ public:
 
     int coinChange(vector<int>& coins, int amount) {
         std::vector<int> dp;
-        std::sort(coins.begin(),coins.end());
-        dp.reserve(amount + 1);
+        dp.resize(amount + 1);
         std::fill(dp.begin(), dp.end(), INT_MAX);
 
         dp[0] = 0;
         for (int i = 1; i<= amount; i++) {
             for (const auto coin : coins) {
-                auto lb = std::lower_bound(coins.begin(), coins.end(),i);
-                if (lb == coins.end()) {
+                if (coin > i) {
                     continue;
                 }
                 if (dp[i-coin] == INT_MAX) {
@@ -48,13 +47,11 @@ public:
                 dp[i] = std::min(dp[i], 1 + dp[i - coin]);
             }
         }
-        return dp.back() == INT_MAX ? -1 : dp.back();
+        if (dp[amount] == INT_MAX) return -1;
+        return dp[amount];
     }
 };
 
-
-
-#include <gtest/gtest.h>
 class TestCoinChange : public ::testing::Test {
 protected:
     void SetUp() override {}
