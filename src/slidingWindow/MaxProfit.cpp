@@ -23,6 +23,7 @@ Explanation: In this case, no transactions are done and the max profit = 0.
  */
 
 #include <gtest/gtest.h>
+#include <climits>
 using namespace std;
 
 struct TestMaxProfit {
