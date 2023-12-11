@@ -36,8 +36,7 @@ public:
         dp[0] = 0;
         for (int i = 1; i<= amount; i++) {
             for (const auto coin : coins) {
-                auto lb = std::lower_bound(coins.begin(), coins.end(),i);
-                if (lb == coins.end()) {
+                if (coin > i) {
                     continue;
                 }
                 if (dp[i-coin] == INT_MAX) {
