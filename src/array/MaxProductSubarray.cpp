@@ -19,6 +19,7 @@ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
  */
 
 #include <vector>
+#include <climits>
 #include <gtest/gtest.h>
 
 using namespace std;

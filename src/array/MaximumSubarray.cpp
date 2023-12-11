@@ -24,6 +24,7 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 // https://www.youtube.com/watch?v=5WZl3MMT0Eg&list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf&index=5
 
 #include <vector>
+#include <climits>
 #include <gtest/gtest.h>
 
 using namespace std;

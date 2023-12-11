@@ -37,7 +37,7 @@ In total, you spent $17 and covered all the days of your travel.
 using namespace std;
 class MinCostTickets {
 public:
-    int mincostTickets(vector<int>& , vector<int>& ) {
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
         return 0;
     }
 };

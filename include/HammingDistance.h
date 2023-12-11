@@ -50,7 +50,7 @@ public:
 #ifdef __GNUC__
     template<typename T>
     static int hammingDistance(T x, T y) {
-        return std::__builtin_popcountll(x^y);
+        return __builtin_popcountll(x^y);
     }
 #endif
 
