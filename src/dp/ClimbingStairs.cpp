@@ -18,39 +18,90 @@
     3. 2 steps + 1 step
  *
  */
-#include <unordered_map>
+#include <vector>
 
-class ClimbingStairs {
-public:
-    std::unordered_map<int,long long> cache {
-            {1,1},
-            {2,2}
-    };
+class ClimbingStairsTopDown {
+    private:
+        static int climbRecursive(int N, int current) {
+            if (current == N) {
+                return 1;
+            }
+            if (current > N) {
+                return 0;
+            }
 
-    int climbStairs(int n) {
-        auto it = cache.find(n);
-        if (it != cache.end()) {
-            return it->second;
+            return climbRecursive(N-1, current) +  climbRecursive(N-2, current);
         }
-        cache[n] = climbStairs(n-1) + climbStairs(n-2);
-        return cache[n];
-    }
 
-    // Bottom up
-    // Need to keep track of last two steps
-    int fibonacci(int n) {
-        if (n == 1) return 1;
-        if (n == 2) return 2;
-        int first = 1;
-        int second = 2;
-        auto steps = 0;
-        for (int j = 3; j <= n; j++) {
-            steps = first + second;
-            first = second;
-            second = steps;
+    public:
+        static int climb(int N) {
+            return climbRecursive(N,0);
         }
-        return steps;
-    }
+};
+
+class ClimbingStairsMemoized {
+    private:
+        // Remember old computed state
+        static int climbRecursive(int N, int current, std::vector<int>& previouslyDetermined) {
+            if (current == N) {
+                return 1;
+            }
+            if (current > N) {
+                return 0;
+            }
+
+            if (previouslyDetermined[current] != -1) {
+                return previouslyDetermined[current];
+            }
+
+            previouslyDetermined[current] = 
+                climbRecursive(N, current + 1 ,previouslyDetermined) 
+                +  climbRecursive(N, current + 2, previouslyDetermined);
+            
+            return previouslyDetermined[current];
+        }
+    public:
+        static int climb(int N) {
+            std::vector<int> previouslyDetermined(N+1, -1);
+            return climbRecursive(N,0, previouslyDetermined);
+        }
+};
+
+class ClimbingStairsBottomUp {
+    public:
+        static int climb(int N) {
+            std::vector<int> store(N + 1 , -1);
+            int currIndex = N - 1;
+            store[currIndex] = 0;
+            store[currIndex--] = 1;
+            store[currIndex--] = 2;
+
+            while(currIndex >= 0) {
+                store[currIndex] = store[currIndex+1] + store[currIndex+2];
+                currIndex--;
+            }
+
+            return store[0];
+        }
+};
+
+class CSSpaceEfficient {
+    public:
+        // Bottom up
+        // Need to keep track of last two steps
+        static int climb(int n) {
+            if (n == 1) return 1;
+            if (n == 2) return 2;
+            int first = 1;
+            int second = 2;
+            auto steps = 0;
+            for (int j = 3; j <= n; j++) {
+                steps = first + second;
+                first = second;
+                second = steps;
+            }
+            return steps;
+        }
 };
 
 #include <gtest/gtest.h>
@@ -61,17 +112,33 @@ protected:
 };
 
 TEST_F(TestClimbingStairs, testCases) {
-    ClimbingStairs cs;
     {
-        EXPECT_EQ(cs.climbStairs(2), 2);
-        EXPECT_EQ(cs.fibonacci(2), 2);
+        EXPECT_EQ(ClimbingStairsTopDown::climb(2), 2);
+        EXPECT_EQ(ClimbingStairsTopDown::climb(3), 3);
+        EXPECT_EQ(ClimbingStairsTopDown::climb(5), 8);
+        //EXPECT_EQ(cs.climbStairsTopDown(45), 1836311903);
     }
+
     {
-        EXPECT_EQ(cs.climbStairs(3), 3);
-        EXPECT_EQ(cs.fibonacci(3), 3);
+        EXPECT_EQ(ClimbingStairsMemoized::climb(2), 2);
+        EXPECT_EQ(ClimbingStairsMemoized::climb(3), 3);
+        EXPECT_EQ(ClimbingStairsMemoized::climb(5), 8);
+        EXPECT_EQ(ClimbingStairsMemoized::climb(45), 1836311903);
     }
+
     {
-        EXPECT_EQ(cs.climbStairs(45), 1836311903);
-        EXPECT_EQ(cs.fibonacci(45), 1836311903);
+        EXPECT_EQ(ClimbingStairsBottomUp::climb(2), 2);
+        EXPECT_EQ(ClimbingStairsBottomUp::climb(3), 3);
+        EXPECT_EQ(ClimbingStairsBottomUp::climb(5), 8);
+        EXPECT_EQ(ClimbingStairsBottomUp::climb(45), 1836311903);
     }
+
+    {
+        EXPECT_EQ(CSSpaceEfficient::climb(2), 2);
+        EXPECT_EQ(CSSpaceEfficient::climb(3), 3);
+        EXPECT_EQ(CSSpaceEfficient::climb(5), 8);
+        EXPECT_EQ(CSSpaceEfficient::climb(45), 1836311903);
+    }
+
+    
 }
