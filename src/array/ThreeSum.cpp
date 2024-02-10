@@ -34,7 +34,7 @@ Explanation: The only possible triplet sums up to 0.
 #include <optional>
 
 using namespace std;
-class Solution {
+class ThreeSum {
 public:
 
     std::optional<std::pair<int,int>> twoSum(size_t /*index*/, int /*target*/, std::vector<int>& /*nums*/) {
@@ -96,7 +96,7 @@ TEST_F(TestThreeSum, testCases) {
     {
         std::vector<int> input {-1,0,1,2,-1,-4};
         std::vector<std::vector<int>> expected = {{-1, -1, 2}, {-1, 0, 1}};
-        Solution s;
+        ThreeSum s;
         auto actual = s.threeSum(input);
         EXPECT_EQ(actual.size(), expected.size());
         for (size_t i = 0; i< actual.size(); ++i) {

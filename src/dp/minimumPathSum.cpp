@@ -1,5 +1,6 @@
 #include <vector>
 #include <gtest/gtest.h>
+using namespace std;
 
 class MinimumPathSum {
 public:
@@ -31,7 +32,7 @@ public:
 
 
 
-
+#include <gtest/gtest.h>
 class TestMinimumPathSum : public ::testing::Test {
 protected:
     void SetUp() override {}
@@ -39,7 +40,7 @@ protected:
 };
 
 TEST_F(TestMinimumPathSum, testCases) {
-    MinimumPathSum cs;
+    // MinimumPathSum cs;
     
 }
 

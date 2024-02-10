@@ -35,7 +35,7 @@ Follow up: If this function is called many times, how would you optimize it?
  */
 
 #include <cstdint>
-class Solution {
+class HammingWeight {
 public:
     int hammingWeight(uint32_t n) {
         return n;

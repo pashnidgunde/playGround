@@ -30,7 +30,7 @@ Output: -1
 
 #include <vector>
 using namespace std;
-class Solution {
+class SearchInSortedRotatedArray {
 public:
     int search(vector<int>&) {
         return 0;

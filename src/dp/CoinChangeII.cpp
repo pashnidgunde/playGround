@@ -40,9 +40,32 @@ Output: 1
 using namespace std;
 class CoinChangeII {
 public:
+    int solveRecursive(const std::vector<int>& coins, const int amount, size_t index) {
+        if (amount < 0) {
+            return 0;
+        }
+
+        if (index == coins.size()) {
+            return 0;
+        }
+
+        if (0 == amount) {
+            return 1;
+        }
+
+        int ways = 0;
+        for (size_t i=index; i < coins.size(); i++) {
+            if (amount >= coins[i]) {
+                ways += solveRecursive(coins, amount - coins[i], i);
+            }
+        }
+
+        return ways;
+    }
+
 
     int coinChange(vector<int>& coins, int amount) {
-        
+        return solveRecursive(coins,amount,0);
     }
 };
 

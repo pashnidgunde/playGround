@@ -28,7 +28,7 @@ Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
  */
 #include <vector>
 using namespace std;
-class Solution {
+class MinInSortedRotatedArray {
 public:
     int findMin(vector<int>& ) {
         return 0;

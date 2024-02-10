@@ -17,7 +17,9 @@ The above arrows point to positions where the corresponding bits are different.
 #include <bits/stdc++.h>
 #endif
 
-class Solution {
+#include <gtest/gtest.h>
+
+class HammingDistance {
 public:
     template<typename T>
     static int hammingDistanceIter(T x, T y) {
@@ -55,3 +57,22 @@ public:
 #endif
 
 };
+
+class TestHammingDistance : public ::testing::Test {
+protected:
+    void SetUp() override {}
+    void TearDown() override {}
+};
+
+TEST_F(TestHammingDistance, testCases) {
+#ifdef __GNUC__
+    EXPECT_EQ(HammingDistance::hammingDistance(1,4), 2);
+    EXPECT_EQ(HammingDistance::hammingDistance(3,1), 1);
+#endif
+
+    EXPECT_EQ(HammingDistance::hammingDistanceIter(1,4), 2);
+    EXPECT_EQ(HammingDistance::hammingDistanceIter(3,1), 1);
+
+    EXPECT_EQ(HammingDistance::hammingDistanceBitSet(1,4), 2);
+    EXPECT_EQ(HammingDistance::hammingDistanceBitSet(3,1), 1);
+}

@@ -37,8 +37,33 @@ In total, you spent $17 and covered all the days of your travel.
 using namespace std;
 class MinCostTickets {
 public:
+
+    int solveRecursively(vector<int>& days, vector<int>& costs, size_t index) {
+        if (index >= days.size()) {
+            return 0;
+        }
+
+        int dailyCost = costs[0] + solveRecursively(days, costs, index+1);
+
+        size_t i = index;
+        while (i < days.size() && days[i] < days[index] + 7)
+        {
+            i++;
+        }
+        int weeklyCost = costs[1] + solveRecursively(days,costs, i);
+
+        i = index;
+        while (i < days.size() && days[i] < days[index] + 30)
+        {
+            i++;
+        }
+
+        int monthlyCost = costs[2] + solveRecursively(days,costs, i);
+        return std::min(dailyCost, std::min(monthlyCost, weeklyCost));
+    }
+
     int mincostTickets(vector<int>& days, vector<int>& costs) {
-        return 0;
+        return solveRecursively(days,costs,0);
     }
 };
 

@@ -8,20 +8,30 @@ add_executable(${PROJECT_NAME}
         array/ProductExceptSelf.cpp
         array/MaximumSubarray.cpp
         array/MaxProductSubarray.cpp
-        bitwise/TestHammingDistance.cpp
-        constantTime/TestCanWin.cpp
-        hashing/TwoSum.cpp
-        hashing/ContainsDuplicate.cpp
-        slidingWindow/MaxProfit.cpp
-        queue/CircularQueue.cpp
         array/ThreeSum.cpp
-        slidingWindow/ContainerWithMostWater.cpp
         array/NumberOfOneBits.cpp
+
+        bitwise/HammingDistance.cpp
+        
+        constantTime/TestCanWin.cpp
+
         dp/ClimbingStairs.cpp
-        dp/MinimumCostForTickets.cpp
         dp/CoinChange.cpp
+        dp/CoinChangeII.cpp
+        dp/MinimumCostForTickets.cpp
+        dp/MinimumPathSum.cpp
+        
+        hashing/ContainsDuplicate.cpp
+        hashing/TwoSum.cpp
+        
+        puzzles/headlands.cpp
+        puzzles/SnowFlakes.cpp
+                
+        queue/CircularQueue.cpp
 
-
+        slidingWindow/ContainerWithMostWater.cpp
+        slidingWindow/MaxProfit.cpp
+        slidingWindow/ContainerWithMostWater.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)
