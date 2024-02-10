@@ -38,9 +38,7 @@ include(CTest)
 enable_testing()
 
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)
-#target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gmock)
-#target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest GTest::gtest_main)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest GTest::gmock GTest::gtest_main)
+target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest GTest::gtest_main)
+#target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest GTest::gmock GTest::gtest_main)
 add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
 set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Tests")
