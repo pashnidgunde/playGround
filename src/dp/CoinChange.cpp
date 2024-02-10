@@ -24,6 +24,7 @@ Output: 0
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <climits>
 
 using namespace std;
 class CoinChange {

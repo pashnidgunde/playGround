@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <iostream>
-//#include <gmock/gmock.h>
+// #include <gmock/gmock.h>
 
 namespace samples {
   class A {
@@ -33,12 +33,12 @@ public:
     }
 };
 
-//class MockRefCount : public RefCount {
-//public:
+// class MockRefCount : public RefCount {
+// public:
 //    MOCK_METHOD0(increment, void());
 //    MOCK_METHOD0(decrement, void());
 //    MOCK_CONST_METHOD0(isZero, bool());
-//};
+// };
 
 
 template<typename T>
@@ -60,6 +60,11 @@ public:
             delete refCount;
         }
     }
+
+    const RefCount* getRefCount() const {
+        return refCount;
+    }
+
 };
 
 
@@ -71,16 +76,16 @@ protected:
 };
 
 TEST_F(TestSharedPtr, testConstructor) {
-    //std::shared_ptr<samples::A> ptr = std::shared_ptr<samples::A>();
     auto ptr = shared_pointer<samples::A>();
-//    MockRefCount refCount;
-//    EXPECT_CALL(refCount, increment()).Times(testing::Exactly(2));
+    auto refCount =  ptr.getRefCount();
+    // EXPECT_EQ(refCount)
+
 }
 
 TEST_F(TestSharedPtr, testDestructor) {
-    //std::shared_ptr<samples::A> ptr = std::shared_ptr<samples::A>();
+    MockRefCount refCount;
     auto ptr = shared_pointer<samples::A>();
-//    MockRefCount refCount;
-//    EXPECT_CALL(refCount, increment()).Times(testing::Exactly(2));
+    }
+    // EXPECT_CALL(refCount, decrement()).Times(testing::Exactly(1));
 }
 

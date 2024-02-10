@@ -11,7 +11,8 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "/usr/lib/libgtest.a",
-                "/usr/lib/libgtest_main.a"
+                "/usr/lib/libgtest_main.a",
+                "/usr/lib/libgmock.a"
             ],
             "options": {
                 "cwd": "${fileDirname}"
