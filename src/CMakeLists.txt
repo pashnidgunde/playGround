@@ -1,4 +1,4 @@
-project(LeetCodeTest)
+project(PlayGroundTests)
 
 find_package(GTest CONFIG REQUIRED)
 
@@ -32,6 +32,7 @@ add_executable(${PROJECT_NAME}
         slidingWindow/ContainerWithMostWater.cpp
         slidingWindow/MaxProfit.cpp
         slidingWindow/ContainerWithMostWater.cpp
+        std/shared_ptr.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE ../include)

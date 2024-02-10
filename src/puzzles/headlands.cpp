@@ -131,7 +131,7 @@ Summary createSummary(int id, const LinkedJobs& linkedJobs) {
 
 }
 
-int main() {
+int headlands_main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
     std::string inputLine;
     std::string header;
