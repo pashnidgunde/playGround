@@ -33,15 +33,43 @@
 // 0,1,3,3,3,3,3,4,4,4,4,4
 // 4,4,4,4,4,4,4,4,3,3,3,0
 
+// 0,1,0,3,2,3,0,0,1,3,0,0
+
+
+
 #include <gtest/gtest.h>
 #include <vector>
 
 class SnowFlakes {
     public :
-        static int computeSnowpack(const std::vector<int>& arr) {
-            return arr.size();
+        static int computeSnowpack(const std::vector<int>& inputs) {
+            std::vector<int> maxFromLeft;
+            maxFromLeft.reserve(inputs.size());
+            auto maxSoFar = INT_MIN;
+            for(const auto& input : inputs) {
+                maxSoFar = std::max(maxSoFar, input);
+                maxFromLeft.emplace_back(maxSoFar);
+            }
+
+            std::vector<int> maxFromRight(inputs.size());
+            size_t index = inputs.size() - 1;
+
+            maxSoFar = INT_MIN;
+            for (auto rbegin = inputs.rbegin(); rbegin != inputs.rend(); rbegin++) {
+                 maxSoFar = std::max(maxSoFar,*rbegin);
+                 maxFromRight[index] = maxSoFar;
+                 index--;
+            }
+
+            int result = 0;
+            for (size_t i=0; i<inputs.size(); i++) {
+                 result += (std::min(maxFromLeft[i], maxFromRight[i]) - inputs[i]);
+            }
+            return result;
         }
 };
+
+
 
 
 class TestSnowFlakes : public ::testing::Test {
