@@ -27,19 +27,24 @@ Explanation: In this case, no transactions are done and the max profit = 0.
 using namespace std;
 
 struct TestMaxProfit {
-    int maxProfit(vector<int>& prices) {
-        auto bIter =  prices.begin();
-        auto sIter = prices.begin();
+    template<typename Iter>
+    int maxProfit(Iter begin, Iter end) {
+        auto buyIter = begin;
+        auto sellIter = begin;
         auto maxProfitSoFar = INT_MIN;
-        while(sIter != prices.end()) {
-            auto profit = *sIter - *bIter;
+        while(sellIter != end) {
+            auto profit = *sellIter - *buyIter;
             maxProfitSoFar = std::max(maxProfitSoFar, profit);
             if (profit < 0) {
-                bIter = sIter;
+                buyIter = sellIter;
             }
-            sIter++;
+            sellIter++;
         }
         return maxProfitSoFar;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        return maxProfit(prices.begin(), prices.end());
     }
 };
 
