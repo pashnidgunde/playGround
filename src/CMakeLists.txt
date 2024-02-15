@@ -32,6 +32,7 @@ add_executable(${PROJECT_NAME}
         slidingWindow/MaxProfit.cpp
         slidingWindow/ContainerWithMostWater.cpp
         std/shared_ptr.cpp
+        std/String.cpp
 )
 
 include(CTest)
