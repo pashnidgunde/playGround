@@ -37,8 +37,17 @@ Follow up: If this function is called many times, how would you optimize it?
 #include <cstdint>
 class HammingWeight {
 public:
-    int hammingWeight(uint32_t n) {
-        return n;
+    static int of(uint32_t n) {
+        int count = 0;
+
+        while(n > 0) {
+            if ((n % 2) == 1) {
+                count++;
+            }
+            n = n >> 1;
+        }
+
+        return count;
     }
 };
 
@@ -50,5 +59,5 @@ protected:
 };
 
 TEST_F(TestHammingWeight, testCases) {
-   // To do
+   EXPECT_EQ(HammingWeight::of(1), 1);
 }
