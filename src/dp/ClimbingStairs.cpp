@@ -43,10 +43,10 @@ class ClimbingStairsMemoized {
     private:
         // Remember old computed state
         static int climbRecursive(int N, int current, std::vector<int>& previouslyDetermined) {
-            if (current == N) {
+            if (current == 0) {
                 return 1;
             }
-            if (current > N) {
+            if (current < 0) {
                 return 0;
             }
 
@@ -55,15 +55,15 @@ class ClimbingStairsMemoized {
             }
 
             previouslyDetermined[current] = 
-                climbRecursive(N, current + 1 ,previouslyDetermined) 
-                +  climbRecursive(N, current + 2, previouslyDetermined);
+                climbRecursive(N, current - 1 ,previouslyDetermined) 
+                +  climbRecursive(N, current - 2, previouslyDetermined);
             
             return previouslyDetermined[current];
         }
     public:
         static int climb(int N) {
             std::vector<int> previouslyDetermined(N+1, -1);
-            return climbRecursive(N,0, previouslyDetermined);
+            return climbRecursive(N,N, previouslyDetermined);
         }
 };
 
