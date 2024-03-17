@@ -23,6 +23,8 @@ add_executable(${PROJECT_NAME}
         hashing/ContainsDuplicate.cpp
         hashing/TwoSum.cpp
         
+        multithreading/SpinLock.cpp
+        
         puzzles/headlands.cpp
         puzzles/SnowFlakes.cpp
                 
