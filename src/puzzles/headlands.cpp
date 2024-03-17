@@ -21,16 +21,20 @@
 #include <algorithm>
 #include <unordered_map>
 #include <iomanip>
+#include <optional>
 
 using namespace std;
 
 struct Job {
-    int id;
-    int runtime;
-    int next;
+    int _id;
+    int _runtime;
+    int _next;
+
+    Job(int id, int runtime, int next) : _id(id), _runtime(runtime), _next(next) {
+    }
 };
 
-bool parse(std::string csv, Job& j) {
+std::optional<Job> parse(std::string csv) {
    std::vector<int> r;
    std::stringstream ss(csv);
    for (int i; ss >>i;) {
@@ -41,42 +45,33 @@ bool parse(std::string csv, Job& j) {
    }
 
    if (r.size() != 3) {
-       return false;
+       return nullopt;
    }
 
-   j.id = r[0];
-   j.runtime = r[1];
-   j.next = r[2];
-   return true;
+   return Job(r[0], r[1], r[2]);
 }
 
 std::vector<Job> createJobs(std::vector<std::string> inputLines) {
     std::vector<Job> jobs;
     for (const auto& inputLine : inputLines) {
-        Job j;
-        if (parse(inputLine, j)) {
-            jobs.push_back(j);
-        }
-        else {
+        auto job = parse(inputLine);
+        if (!job) {
             std::cout << "Malformed Input" << std::endl;
+            continue;
         }
+        jobs.push_back(job.value());
     }
 
     return jobs;
 }
 
 using LinkedJobs = std::unordered_map<int,std::pair<int,int>>;
-
-
 LinkedJobs linkJobs(const std::vector<Job>& jobs )
 {
     LinkedJobs j;
-
     for(const auto& job : jobs)
     {
-
-        j[job.id] = {job.runtime,job.next};
-
+        j[job._id] = {job._runtime,job._next};
     }
     return j;
 }
@@ -126,7 +121,9 @@ Summary createSummary(int id, const LinkedJobs& linkedJobs) {
         id = it->second.second;
     } while(id != 0);
 
-    s.average = s.runtimeInSeconds / s.count;
+    if (s.count > 0) {
+        s.average = s.runtimeInSeconds / s.count;
+    }
     return s;
 
 }
@@ -150,13 +147,12 @@ int headlands_main() {
     auto linkedJobs = linkJobs(jobs);
     bool printLast = true;
 
-    for (const auto& job : jobs)
-    {
-        if (job.next == 0) {
+    for (const auto& job : jobs) {
+        if (job._next == 0) {
             continue;
         }
 
-        Summary s = createSummary(job.id, linkedJobs);
+        Summary s = createSummary(job._id, linkedJobs);
         if (s.valid) {
             std::cout << "-" << std::endl;
             printSummary(s);
