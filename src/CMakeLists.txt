@@ -23,11 +23,7 @@ add_executable(${PROJECT_NAME}
         
         hashing/ContainsDuplicate.cpp
         hashing/TwoSum.cpp
-        
-        multithreading/FuturePromise.cpp
-        multithreading/SpinLock.cpp
-        multithreading/thread.cpp
-        
+
         puzzles/headlands.cpp
         puzzles/SnowFlakes.cpp
                 
@@ -36,8 +32,14 @@ add_executable(${PROJECT_NAME}
         slidingWindow/ContainerWithMostWater.cpp
         slidingWindow/MaxProfit.cpp
         slidingWindow/ContainerWithMostWater.cpp
+
+        std/multithreading/FuturePromise.cpp
+        std/multithreading/SpinLock.cpp
+        std/multithreading/thread.cpp
         std/shared_ptr.cpp
         std/String.cpp
+        std/templates/Concepts.cpp
+        std/templates/CTAD.cpp
 )
 
 include(CTest)
