@@ -27,6 +27,6 @@ TEST_F(TestCTAD, testCTAD) {
     SomeClass y("Hello");
     static_assert(std::is_same_v<decltype(y),SomeClass<const char*>>);
 
-    std::vector {1,2,3}; // std::vector<int>
+    [[maybe_unused]] std::vector v{1,2,3}; // std::vector<int>
 }
 

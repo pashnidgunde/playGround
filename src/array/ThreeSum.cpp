@@ -34,43 +34,81 @@ Explanation: The only possible triplet sums up to 0.
 #include <optional>
 
 using namespace std;
+using Index = int;
+using IndexPair = std::pair<Index,Index>;
+
 class ThreeSum {
 public:
-
-    std::optional<std::pair<int,int>> twoSum(size_t /*index*/, int /*target*/, std::vector<int>& /*nums*/) {
-//        size_t begin = index;
-//        size_t end = nums.size() - 1;
-//
-//        while(begin < end) {
-//            auto sum = nums[begin] + nums[end];
-//            if (sum == target) {
-//                return std::make_pair(nums[begin], nums[end]);
-//            }
-//            else if (sum > target) {
-//                end--;
-//            }
-//            else {
-//                begin++;
-//            }
-//        }
-        return std::nullopt;
+    template<typename Iter, typename Target>
+    std::vector<IndexPair> twoSum(Iter b, Iter e, Target target) {
+        std::vector<IndexPair> result;
+        auto begin = b;
+        auto end = e;
+        end--;
+        while(begin < end) {
+            auto sum = *begin + *end;
+            if (sum == target) {
+                auto bd = std::distance(b,begin);
+                auto ed = std::distance(b,end);
+                result.emplace_back(bd,ed);
+                begin++;
+            }
+            else if (sum > target) {
+                end--;
+            }
+            else {
+                begin++;
+            }
+        }
+        return result;
     }
 
+    template<typename Iter, typename Target>
+    std::vector<std::vector<int>> threeSum(Iter begin, Iter end, Target target) {
+        // sort
+        std::sort(begin,end);
 
-    vector<vector<int>> threeSum(vector<int>& /*nums*/) {
+        auto b = begin++;
+        // skip all duplicates in start
+        while(index < nums.size()) {
+            if (nums[index -1] == nums[index]) {
+                index++;
+            }
+        }
+        index --;
+
+        return {{}};
+    }
+
+    
+    auto skipDuplicatesAtStart(auto begin, auto end) {
+        if (begin == end) {
+            return end;
+        }
+
+        auto b = begin;
+        b++;
+        while (b != end) {
+            if (*begin == *b) {
+                b++;
+            }
+        }
+        b--;
+        return b;
+    }
+
+    // {-1,0,1,2,-1,-4};
+    // {-4,-1,-1,0,1,2};
+    vector<vector<int>> threeSum(vector<int>& /*nums*/, int /*target*/) {
+        // sort
+        // std::sort(nums.begin(), nums.end());
+
+        // auto begin = nums.begin();
+        // auto end = nums.end();
+        
+        // auto start = skipDuplicatesAtStart(begin,end);
+
         vector<vector<int>> result;
-
-//        // sort
-//        std::sort(nums.begin(), nums.end());
-//
-//        size_t index = 1;
-//        // skip all duplicates in start
-//        while(index < nums.size()) {
-//            if (nums[index -1] == nums[index]) {
-//                index++;
-//            }
-//        }
-//        index --;
 //
 //        auto number = nums[index];
 //        std::optional<std::pair<int,int>> twoSumPair = twoSum(index, -number, nums);
@@ -92,15 +130,39 @@ protected:
     void TearDown() override {}
 };
 
-TEST_F(TestThreeSum, testCases) {
+
+TEST_F(TestThreeSum, twoSumTests) {
+    ThreeSum ts;
     {
-        std::vector<int> input {-1,0,1,2,-1,-4};
-        std::vector<std::vector<int>> expected = {{-1, -1, 2}, {-1, 0, 1}};
-        ThreeSum s;
-        auto actual = s.threeSum(input);
-        EXPECT_EQ(actual.size(), expected.size());
-        for (size_t i = 0; i< actual.size(); ++i) {
-            EXPECT_EQ(actual[i], expected[i]);
-        }
+        auto input = std::vector<int>{2, 7, 11, 15};
+        auto actual = ts.twoSum(input.begin(), input.end(),9);
+        auto expected = std::vector<IndexPair>{{0, 1}};
+        GTEST_ASSERT_EQ(expected, actual);
+    }
+    
+    {
+        auto input = std::vector<int>{2,3,4};
+        auto actual = ts.twoSum(input.begin(), input.end(), 6);
+        auto expected = std::vector<IndexPair>{{0, 2}};
+        GTEST_ASSERT_EQ(expected, actual);
+    }
+    {
+        auto input = std::vector<int>{3,3};
+        auto actual = ts.twoSum(input.begin(), input.end(), 6);
+        auto expected = std::vector<IndexPair>{{0,1}};
+        GTEST_ASSERT_EQ(expected, actual);
     }
 }
+
+//TEST_F(TestThreeSum, testCases) {
+//    {
+//        std::vector<int> input {-1,0,1,2,-1,-4};
+//        std::vector<std::vector<int>> expected = {{-1, -1, 2}, {-1, 0, 1}};
+//        ThreeSum s;
+//        auto actual = s.threeSum(input,0);
+//        EXPECT_EQ(actual.size(), expected.size());
+//        for (size_t i = 0; i< actual.size(); ++i) {
+//            EXPECT_EQ(actual[i], expected[i]);
+//        }
+//    }
+//}

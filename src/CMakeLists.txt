@@ -13,25 +13,25 @@ add_executable(${PROJECT_NAME}
         array/NumberOfOneBits.cpp
 
         bitwise/HammingDistance.cpp
-        
+
         constantTime/TestCanWin.cpp
 
         dp/ClimbingStairs.cpp
         dp/CoinChange.cpp
         dp/CoinChangeII.cpp
         dp/MinimumCostForTickets.cpp
-        
+
         hashing/ContainsDuplicate.cpp
         hashing/TwoSum.cpp
 
         puzzles/headlands.cpp
         puzzles/SnowFlakes.cpp
-                
+
         queue/CircularQueue.cpp
 
         slidingWindow/ContainerWithMostWater.cpp
         slidingWindow/MaxProfit.cpp
-        slidingWindow/ContainerWithMostWater.cpp
+
 
         std/multithreading/FuturePromise.cpp
         std/multithreading/SpinLock.cpp
@@ -40,6 +40,7 @@ add_executable(${PROJECT_NAME}
         std/String.cpp
         std/templates/Concepts.cpp
         std/templates/CTAD.cpp
+        std/templates/templateTemplateClass.cpp
 )
 
 include(CTest)
