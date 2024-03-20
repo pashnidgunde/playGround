@@ -1,4 +1,4 @@
 cmake*/*
 .idea*
 build/
-.vscode/*
+.vscode*/*
