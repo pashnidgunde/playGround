@@ -46,7 +46,7 @@ class FuturePromiseDemo {
             });
 
             std::thread t2([&f, &mp]() {
-                // Blocking call until t1 finishes
+                // get waits until t1 finishes
                 // fmt::println("future value from t1 is : {}", f.get());
                 mp.set_value(f.get() * 10);
             });
@@ -57,7 +57,15 @@ class FuturePromiseDemo {
 
             t1.join();
             t2.join();
-            
+        }
+
+
+        [[nodiscard]] int demoThree() {
+          std::packaged_task<int()> pt{[](){ return 999; }};
+          auto future = pt.get_future();
+          std::jthread t1(std::move(pt));
+
+          return future.get();
         }
 
 };
@@ -83,3 +91,7 @@ TEST_F(TestFuturePromise, testTwo) {
     EXPECT_EQ(futurePromiseDemo.getData(), 100000);
 }
 
+TEST_F(TestFuturePromise, testThree) {
+  FuturePromiseDemo futurePromiseDemo;
+  EXPECT_EQ(futurePromiseDemo.demoThree(), 999);
+}

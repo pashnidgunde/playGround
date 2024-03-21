@@ -164,21 +164,21 @@
       "verbose": true
     },
     {
-      "name": "trading-platform-ninja-gcc-x64-release",
+      "name": "playground-ninja-gcc-x64-release",
       "displayName": "trading platform ninja gcc x64 release build",
       "configurePreset": "Ninja-gcc-x64-release",
       "targets" : ["PlayGround"],
       "verbose": true
     },
     {
-      "name": "trading-platform-ninja-clang-x64-debug",
+      "name": "playground-ninja-clang-x64-debug",
       "displayName": "trading platform ninja clang x64 debug build",
       "configurePreset": "Ninja-clang-x64-debug",
       "targets" : ["PlayGround"],
       "verbose": true
     },
     {
-      "name": "trading-platform-ninja-clang-x64-release",
+      "name": "playground-ninja-clang-x64-release",
       "displayName": "trading platform windows ninja clangx64 debug build",
       "configurePreset": "Ninja-clang-x64-release",
       "targets" : ["PlayGround"],
