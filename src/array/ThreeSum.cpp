@@ -63,39 +63,29 @@ public:
         return result;
     }
 
+    auto skipDuplicatesAtStart(auto begin, auto end) {
+      if (begin == end) {
+        return end;
+      }
+      auto b = begin;
+      while (b != end && (*begin == *b)) {
+        b++;
+      }
+      b--;
+      return b;
+    }
+
     template<typename Iter, typename Target>
     std::vector<std::vector<int>> threeSum(Iter begin, Iter end, Target target) {
         // sort
         std::sort(begin,end);
 
-        auto b = begin++;
-        // skip all duplicates in start
-        while(index < nums.size()) {
-            if (nums[index -1] == nums[index]) {
-                index++;
-            }
-        }
-        index --;
+        auto iter = skipDuplicatesAtStart(begin,end);
 
         return {{}};
     }
 
-    
-    auto skipDuplicatesAtStart(auto begin, auto end) {
-        if (begin == end) {
-            return end;
-        }
 
-        auto b = begin;
-        b++;
-        while (b != end) {
-            if (*begin == *b) {
-                b++;
-            }
-        }
-        b--;
-        return b;
-    }
 
     // {-1,0,1,2,-1,-4};
     // {-4,-1,-1,0,1,2};
@@ -137,21 +127,44 @@ TEST_F(TestThreeSum, twoSumTests) {
         auto input = std::vector<int>{2, 7, 11, 15};
         auto actual = ts.twoSum(input.begin(), input.end(),9);
         auto expected = std::vector<IndexPair>{{0, 1}};
-        GTEST_ASSERT_EQ(expected, actual);
+        EXPECT_EQ(expected, actual);
     }
     
     {
         auto input = std::vector<int>{2,3,4};
         auto actual = ts.twoSum(input.begin(), input.end(), 6);
         auto expected = std::vector<IndexPair>{{0, 2}};
-        GTEST_ASSERT_EQ(expected, actual);
+        EXPECT_EQ(expected, actual);
     }
     {
         auto input = std::vector<int>{3,3};
         auto actual = ts.twoSum(input.begin(), input.end(), 6);
         auto expected = std::vector<IndexPair>{{0,1}};
-        GTEST_ASSERT_EQ(expected, actual);
+        EXPECT_EQ(expected, actual);
     }
+}
+
+TEST_F(TestThreeSum, testSkipAtStart) {
+  ThreeSum ts;
+  {
+
+    auto input = std::vector<int>{};
+    EXPECT_EQ(ts.skipDuplicatesAtStart(input.begin(), input.end()), input.end());
+  }
+
+  {
+    auto input = std::vector<int>{1,1,1,1,1,1,1};
+    auto iter = ts.skipDuplicatesAtStart(input.begin(), input.end());
+    EXPECT_EQ(iter, input.end() - 1);
+  }
+
+  {
+    std::vector<int> input{1,2,3};
+    auto iter = ts.skipDuplicatesAtStart(input.begin(), input.end());
+    std::cout << *iter;
+    EXPECT_EQ(iter, input.begin());
+  }
+
 }
 
 //TEST_F(TestThreeSum, testCases) {

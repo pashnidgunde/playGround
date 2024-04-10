@@ -36,9 +36,13 @@ add_executable(${PROJECT_NAME}
         std/multithreading/FuturePromise.cpp
         std/multithreading/SpinLock.cpp
         std/multithreading/thread.cpp
+
+        std/oop/OOP.cpp
+
         std/templates/Concepts.cpp
         std/templates/CTAD.cpp
         std/templates/templateTemplateClass.cpp
+        std/launder.cpp
         std/shared_ptr.cpp
         std/String.cpp
         std/variant/MyVariant.cpp

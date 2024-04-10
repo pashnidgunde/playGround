@@ -7,9 +7,13 @@
 #include <gtest/gtest.h>
 
 
+// 1. Storage
+// 2. Determine type
+
 namespace pn {
   template<typename ...Ts>
   struct Variant {
+
   };
 }
 
