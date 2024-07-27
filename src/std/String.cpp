@@ -6,6 +6,18 @@
 
 #include <gtest/gtest.h>
 
+struct StringLayout {
+    union memory{
+        struct dynamic{
+            char* ptr;
+            size_t capacity;
+            size_t len;
+        };
+        char _onstack_data[24];
+    };
+    
+};
+
 namespace pn {
     template<typename T>
     class basic_string {
@@ -38,7 +50,7 @@ namespace pn {
             free();
         }
 
-        explicit basic_string(const char *data) {
+        explicit basic_string(const T *data) {
             if (nullptr == data) {
                 throw std::runtime_error("data is null");
             }

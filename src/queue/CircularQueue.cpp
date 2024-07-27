@@ -36,7 +36,6 @@ CQueue.isFull();   // return True
 CQueue.deQueue();  // return True
 CQueue.enQueue(4); // return True
 CQueue.Rear();     // return 4
-
  */
 
 #include <array>

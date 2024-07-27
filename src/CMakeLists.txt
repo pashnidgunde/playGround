@@ -24,7 +24,7 @@ add_executable(${PROJECT_NAME}
         hashing/ContainsDuplicate.cpp
         hashing/TwoSum.cpp
 
-        puzzles/headlands.cpp
+        puzzles/hl1.cpp
         puzzles/SnowFlakes.cpp
 
         queue/CircularQueue.cpp
@@ -34,8 +34,10 @@ add_executable(${PROJECT_NAME}
 
 
         std/multithreading/FuturePromise.cpp
+        std/multithreading/lock_guard.cpp
         std/multithreading/SpinLock.cpp
         std/multithreading/thread.cpp
+        
 
         std/oop/OOP.cpp
 

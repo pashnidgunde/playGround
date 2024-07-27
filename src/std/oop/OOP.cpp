@@ -4,29 +4,24 @@
 #include <fstream>
 
 struct Logger {
-  virtual void log(std::string_view message) = 0;
+  virtual void log(const std::string_view message) = 0;
   virtual ~Logger() = default;
 };
 
 
 struct ConsoleLogger final : Logger {
-  void log(std::string_view message) override {
+  void log(const std::string_view message) override {
     fmt::println("{}", message);
   }
 };
 
 struct FileLogger final : Logger {
-  FileLogger(const char* fileName) {
-    fstream.open(fileName, std::ios::out);
-    if (!fstream) {
-      throw std::runtime_error("FileLogger initialization failed");
-    }
-  }
+  FileLogger(const char* fileName) : fstream(fileName) {}
 
   FileLogger() : FileLogger{"test.txt"} {
     fstream.close();
   }
-  void log(std::string_view message) override {
+  void log(const std::string_view message) override {
       fstream << message.data();
   }
 
@@ -43,6 +38,23 @@ struct Lizard final : Animal {
   int _height {0};
 };
 
+struct Shape {
+protected :
+  Shape& operator= (const Shape& other) {
+    if (this == &other) {
+      return *this;
+    }
+    // assign
+    // ...
+    return *this;
+  }
+};
+
+struct Rectangle final : Shape {
+};
+
+struct Triangle final : Shape {
+};
 
 class TestOOP : public ::testing::Test {
 protected:
@@ -88,4 +100,16 @@ TEST_F(TestOOP, testSlicing) {
   EXPECT_EQ(lizard1._weight, 10);
   EXPECT_NE(lizard1._height, 20);
   EXPECT_EQ(lizard1._height, 200);
+}
+
+TEST_F(TestOOP, avoidSlicingProtectedEqualOp) {
+
+  Rectangle rectangle1;
+  Rectangle rectangle2;
+
+  [[maybe_unused]] Shape *a1 = &rectangle1;
+  [[maybe_unused]] Shape *a2 = &rectangle2;
+
+  // *a1 = *a2;             // == > Shouldn't compile because assignment is protected
+  rectangle1 = rectangle2;  // ==> Should compile
 }

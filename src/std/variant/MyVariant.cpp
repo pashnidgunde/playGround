@@ -2,8 +2,6 @@
 #include <stdexcept>
 #include <gtest/gtest.h>
 
-
-
 struct MyVariant {
 
   enum class Type {
