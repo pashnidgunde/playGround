@@ -17,3 +17,10 @@
     export PATH=/usr/local/bin/cmake:$PATH
     source ~/.bashrc
     cmake --version
+
+## Step 2: Clone repo
+    git clone 
+
+## Step 2: Configure vcpkg
+    git clone https://github.com/microsoft/vcpkg.git
+
