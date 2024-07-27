@@ -18,9 +18,23 @@
     source ~/.bashrc
     cmake --version
 
-## Step 2: Clone repo
-    git clone 
-
-## Step 2: Configure vcpkg
+## Step 2 : Install dependencies
+    sudo apt-get install curl zip unzip tar            
+    
+    sudo apt install ninja-build
+    
     git clone https://github.com/microsoft/vcpkg.git
+    cd vcpkg && bootstrap-vcpkg.bat -disableMetrics
+    
+## Step 2: Setup dependencies
+    git clone https://github.com/pashnidgunde/playGround.git
+    cd ./playGround
+    
+    cmake --preset=Ninja-gcc-x64-debug    
+    cd build/Ninja-gcc-x64-debug
+    ninja
+    
+    
+
+
 
