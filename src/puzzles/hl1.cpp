@@ -28,12 +28,12 @@
 
 struct HL1 {
     struct Job {
-        size_t _id{0};
-        size_t _next{0};
-        size_t _runtime{0};
+        int _id{0};
+        int _next{0};
+        int _runtime{0};
 
         Job() = default;
-        Job(size_t id, size_t next, size_t runtime) : _id(id) , _next(next), _runtime(runtime) {
+        Job(int id, int next, int runtime) : _id(id) , _next(next), _runtime(runtime) {
         }
     };
 
