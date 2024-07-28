@@ -27,20 +27,20 @@ public:
     }
 
     void demo() {
-    std::thread t1([&](){
-        for (size_t i =0; i< 10000000; ++i) {
-            increment();
-        }
-    });
+        std::thread t1([&](){
+            for (size_t i =0; i< 10000000; ++i) {
+                increment();
+            }
+        });
 
-    std::thread t2([&](){
-        for (size_t i =0; i< 10000000; ++i) {
-            decrement();
-        }
-    });
+        std::thread t2([&](){
+            for (size_t i =0; i< 10000000; ++i) {
+                decrement();
+            }
+        });
 
-    t1.join();
-    t2.join();
+        t1.join();
+        t2.join();
     }
 
     int getShared() const { return shared_data; }

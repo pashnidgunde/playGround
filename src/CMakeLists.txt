@@ -36,6 +36,7 @@ add_executable(${PROJECT_NAME}
         std/multithreading/FuturePromise.cpp
         std/multithreading/lock_guard.cpp
         std/multithreading/SpinLock.cpp
+        std/multithreading/SpinLockAF.cpp
         std/multithreading/thread.cpp
         
 

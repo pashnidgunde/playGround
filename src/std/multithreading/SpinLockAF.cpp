@@ -1,8 +1,9 @@
 #include <thread>
 #include <atomic>
+#include <mutex>
 
 struct SpinLock {
-  std::atomic_flag flag {ATOMIC_FLAG_INIT};
+  std::atomic_flag flag = ATOMIC_FLAG_INIT;
 
   void lock() {
     // while(flag.test_and_set());
@@ -19,19 +20,43 @@ struct SpinLock {
 
 SpinLock spin;
 //std::mutex spin;
+int shared_data = 0;
 
-void work() {
+// lock and unlock calls through lock_guard
+void decrement() {
+  std::lock_guard<SpinLock> lg(spin);
+  shared_data ++;
+}
+
+// lock and unlock direct calls
+void increment() {
   spin.lock();
-  // cs
+  shared_data --;
   spin.unlock();
 }
 
-int main() {
-  std::thread t1(work);
-  std::thread t2(work);
+#include <gtest/gtest.h>
 
-  t1.join();
-  t2.join();
+class TestSpinLockAF : public ::testing::Test {
+protected:
+    void SetUp() override {}
+    void TearDown() override {}
+};
 
-  return 0;
+TEST_F(TestSpinLockAF, testAtomicFlag) {
+    std::thread t1([](){
+      for (size_t i=0; i<100000; ++i) {
+        increment();
+      }
+    });
+  
+    std::thread t2([](){
+      for (size_t i=0; i<100000; ++i) {
+        decrement();
+      }
+    });
+
+    t1.join();
+    t2.join();
+    EXPECT_EQ(shared_data, 0);
 }
