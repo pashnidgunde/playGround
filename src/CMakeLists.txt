@@ -39,9 +39,8 @@ add_executable(${PROJECT_NAME}
         std/multithreading/SpinLockAF.cpp
         std/multithreading/thread.cpp
         
-
         std/oop/OOP.cpp
-
+        std/ranges/contains.cpp
         std/templates/Concepts.cpp
         std/templates/CTAD.cpp
         std/templates/templateTemplateClass.cpp
