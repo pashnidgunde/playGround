@@ -33,9 +33,9 @@ class MaxSubArray {
 public:
     // O(n*n)
     int maxSubArray1(vector<int>& nums) {
-        int maxSoFar = INT_MIN;
+        int maxSoFar{INT_MIN};
         for (size_t i = 0; i < nums.size(); ++i) {
-            int sumSoFar = 0;
+            int sumSoFar{0};
             for (size_t j = i; j < nums.size(); ++j) {
                 sumSoFar += nums[j];
                 maxSoFar = std::max(maxSoFar, sumSoFar);
@@ -46,8 +46,8 @@ public:
 
     // O(n)
     int maxSubArray(vector<int>& nums) {
-        int maxSoFar = INT_MIN;
-        int sumSoFar = 0;
+        int maxSoFar{INT_MIN};
+        int sumSoFar{0};
         for (int num : nums) {
             sumSoFar += num;
             maxSoFar = std::max(maxSoFar, sumSoFar);
