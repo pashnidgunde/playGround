@@ -9,9 +9,9 @@
 struct StringLayout {
     union memory{
         struct dynamic{
-            char* ptr;
-            size_t capacity;
-            size_t len;
+            char* ptr{nullptr};
+            size_t capacity{0};
+            size_t len{0};
         };
         char _onstack_data[24];
     };
@@ -22,13 +22,18 @@ namespace pn {
     template<typename T>
     class basic_string {
     private:
-        size_t _len = 0;
-        T* _ptr = nullptr;
+        size_t _len{0};
+        T* _ptr{nullptr};
+
+        void alloc_assign(const T *data) {
+            _len = strlen(data);
+            _ptr = new T[_len + 1];
+            memcpy(_ptr, data, _len);
+            _ptr[_len] = '\0';
+        }
 
         void deep_copy(const basic_string &other) {
-            _len = other._len;
-            _ptr = new T[_len];
-            memcpy(_ptr, other._ptr, other._len);
+            alloc_assign(other._ptr);
         }
 
         void free() {
@@ -54,9 +59,7 @@ namespace pn {
             if (nullptr == data) {
                 throw std::runtime_error("data is null");
             }
-            _len = strlen(data);
-            _ptr = new T[_len];
-            memcpy(_ptr, data, _len);
+            alloc_assign(data);
         }
 
         basic_string(const basic_string& other) {
@@ -96,9 +99,10 @@ TEST_F(TestString, testConstructor) {
 TEST_F(TestString, testConstructorWithArgs) {
     EXPECT_ANY_THROW(pn::string s(nullptr));
 
-    pn::string s("Hello World !!!");
+    const char * c_array = "Hello World !!!";
+    pn::string s(c_array);
     EXPECT_EQ(s.size(), strlen(s.c_str()));
-    EXPECT_STREQ(s.c_str(),"Hello World !!!");
+    EXPECT_STREQ(s.c_str(),c_array);
 }
 
 TEST_F(TestString, testCopy) {
