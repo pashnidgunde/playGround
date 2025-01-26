@@ -1,10 +1,9 @@
 #include <algorithm>
-#include <print>
 #include <vector>
 
 namespace pn {
     template<typename Iter, typename T>
-    bool contains(Iter begin, Iter end, T val) {
+    bool contains(Iter begin, const Iter& end, const T& val) {
         while(begin != end) {
             if (*begin == val) {
                 return true;
@@ -14,30 +13,34 @@ namespace pn {
         return false;
     }
 
-    template<typename T>
-    bool contains(std::vector<T>& hayStack, const T& needle) {
+    template<typename C>
+    bool contains(const C& hayStack, const typename C::value_type& needle) {
         return contains(hayStack.begin(), hayStack.end(), needle);
     }
 
     template<typename Iter>
-    bool contains_subrange(Iter hayStackBegin, Iter hayStackEnd, 
-        Iter needleBegin, Iter needleEnd) {
-        auto needleIter = needleBegin;
-        while(hayStackBegin != hayStackEnd && needleIter != needleEnd) {
+    bool contains_subrange(const Iter& hBegin, const Iter& hEnd,
+        const Iter& nBegin, const Iter& nEnd) {
+        auto needleIter{nBegin};
+        auto hayStackBegin{hBegin};
+        while(hayStackBegin != hEnd && needleIter != nEnd) {
             if (*needleIter != *hayStackBegin) {
-                needleIter = needleBegin;
+                needleIter = nBegin;
             } else {
-                needleIter++;
+                ++needleIter;
             }
-            hayStackBegin++;
+            ++hayStackBegin;
         }
-        return needleIter == needleEnd;
+        return needleIter == nEnd;
     }
 
 
-    template<typename T>
-    bool contains_subrange(const std::vector<T>& hayStack, const std::vector<T>& needle) {
-        return contains_subrange(hayStack.begin(), hayStack.end(), needle.begin(), needle.end());
+    template<typename C>
+    bool contains_subrange(const C& hayStack, const C& needle) {
+        return contains_subrange(hayStack.begin(),
+            hayStack.end(),
+            needle.begin(),
+            needle.end());
     }
 }
 
@@ -55,14 +58,34 @@ TEST_F(TestContains, testOne) {
     EXPECT_FALSE(pn::contains(v,10));
 }
 
-TEST_F(TestContains, testRange) {
+TEST_F(TestContains, testOneIL) {
+    auto hay_stack = std::initializer_list<int>{1,2,3,4,5};
+    EXPECT_TRUE(std::ranges::contains(hay_stack, 4));
+    EXPECT_TRUE(pn::contains(hay_stack,4));
+    EXPECT_FALSE(pn::contains(hay_stack,10));
+
+    std::vector<int> v{1,2,3,4,5};
+    EXPECT_TRUE(std::ranges::contains(v, 4));
+    EXPECT_TRUE(pn::contains(v,4));
+    EXPECT_FALSE(pn::contains(v,10));
+}
+
+TEST_F(TestContains, testILRange) {
+    auto hay_stack = std::initializer_list<int>{1,2,3,4,5};
+    EXPECT_TRUE(std::ranges::contains_subrange(hay_stack, std::initializer_list<int>{4,5}));
+    EXPECT_TRUE(pn::contains_subrange(hay_stack, std::initializer_list<int>{4,5}));
+    
+    EXPECT_FALSE(pn::contains_subrange(hay_stack, std::initializer_list<int>{4,9}));
+    EXPECT_FALSE(pn::contains_subrange(hay_stack, std::initializer_list<int>{1,2,3,4,5,6,7}));
+    EXPECT_FALSE(pn::contains_subrange(hay_stack, std::initializer_list<int>{1,2,3,4,5,6}));
+}
+
+TEST_F(TestContains, testVectorRange) {
     std::vector<int> v{1,2,3,4,5,6};
     EXPECT_TRUE(std::ranges::contains_subrange(v, std::vector<int>{4,5}));
-    EXPECT_TRUE(std::ranges::contains_subrange(v, std::vector<int>{4,5}));
     EXPECT_TRUE(pn::contains_subrange(v, std::vector<int>{4,5}));
+
     EXPECT_FALSE(pn::contains_subrange(v, std::vector<int>{4,9}));
     EXPECT_FALSE(pn::contains_subrange(v, std::vector<int>{1,2,3,4,5,6,7}));
     EXPECT_TRUE(pn::contains_subrange(v, std::vector<int>{1,2,3,4,5,6}));
 }
-
-
